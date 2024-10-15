@@ -2,6 +2,93 @@ const express = require('express');
 const app = express();
 const { products } = require('./data'); 
 
+// app.get('/', (req, res) => {
+//   res.send(`
+//     <html lang="en">
+//     <head>
+//       <meta charset="UTF-8">
+//       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//       <title>Home Page</title>
+//       <style>
+//         body {
+//           font-family: Arial, sans-serif;
+//           background-color: #e9f5f5;
+//           margin: 0;
+//           padding: 0;
+//         }
+//         header {
+//           background: #003135;
+//           color: #fff;
+//           text-align: center;
+//           padding: 20px 0;
+//         }
+//         h1 {
+//           margin: 0;
+//           font-size: 2.5em;
+//         }
+//         h2 {
+//           color: #024950;
+//           margin: 10px 0;
+//         }
+//         .container {
+//           max-width: 1200px;
+//           margin: 20px auto;
+//           padding: 20px;
+//           background: white;
+//           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//           border-radius: 8px;
+//         }
+//         a {
+//           text-decoration: none;
+//           color:  #024950;
+//           font-weight: bold;
+          
+//         }
+//         a:hover {
+//           text-decoration: underline;
+//         }
+//         .price-range {
+//           margin: 20px 0;
+//         }
+//         .price-range ul {
+//           list-style: none;
+//           padding: 0;
+//           display: flex;
+//           justify-content: space-around;
+//         }
+//         .price-range li {
+//           background: #0fa4af;
+//           color: white;
+//           padding: 10px 15px;
+//           border-radius: 5px;
+//           transition: background 0.3s;
+//         }
+//         .price-range li:hover {
+//           background: #024950;
+//         }
+//       </style>
+//     </head>
+//     <body>
+//       <header>
+//         <h1>Welcome to Our Product Store</h1>
+//         <h2>Your one-stop shop for amazing products</h2>
+//       </header>
+//       <div class="container">
+//         <h2>Filter Products by Price Range</h2>
+//         <div class="price-range">
+//           <ul>
+//             <li><a href="/api/products/range/10/20">$10 - $20</a></li>
+//             <li><a href="/api/products/range/20/30">$20 - $30</a></li>
+//             <li><a href="/api/products/range/30/40">$30 - $40</a></li>
+//             <li><a href="/api/products/range/10/50">$10 - $50</a></li>
+//           </ul>
+//         </div>
+//       </div>
+//     </body>
+//     </html>
+//   `);
+// });
+
 app.get('/', (req, res) => {
   res.send(`
     <html lang="en">
@@ -40,15 +127,15 @@ app.get('/', (req, res) => {
         }
         a {
           text-decoration: none;
-          color:  #024950;
+          color: #024950;
           font-weight: bold;
-          
         }
         a:hover {
           text-decoration: underline;
         }
-        .price-range {
+        .price-range, .view-all {
           margin: 20px 0;
+          text-align: center; /* Center the button */
         }
         .price-range ul {
           list-style: none;
@@ -65,6 +152,19 @@ app.get('/', (req, res) => {
         }
         .price-range li:hover {
           background: #024950;
+        }
+        .view-all button {
+          background-color: #0fa4af;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1em;
+          transition: background 0.3s;
+        }
+        .view-all button:hover {
+          background-color: #024950;
         }
       </style>
     </head>
@@ -83,11 +183,15 @@ app.get('/', (req, res) => {
             <li><a href="/api/products/range/10/50">$10 - $50</a></li>
           </ul>
         </div>
+        <div class="view-all">
+          <a href="/api/products"><button>View All Products</button></a>
+        </div>
       </div>
     </body>
     </html>
   `);
 });
+
 
 app.get('/api/products', (req, res) => {
   let productHTML = `
