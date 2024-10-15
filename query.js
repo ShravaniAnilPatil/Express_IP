@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { products } = require('./data'); // Ensure your 'data' module exports an array of products
+const { products } = require('./data'); 
 
 app.get('/', (req, res) => {
   res.send(`
@@ -193,8 +193,6 @@ app.get('/api/products/:productID', (req, res) => {
 
 app.get('/api/products/range/:min/:max', (req, res) => {
   const { min, max } = req.params;
-
-  // Validate query parameters
   const minPrice = Number(min);
   const maxPrice = Number(max);
 
@@ -202,14 +200,12 @@ app.get('/api/products/range/:min/:max', (req, res) => {
     return res.status(400).json({ success: false, message: 'Min and Max should be valid numbers' });
   }
 
-  // Filter products within the specified price range
   const filteredProducts = products.filter(product => product.price >= minPrice && product.price <= maxPrice);
 
   if (filteredProducts.length < 1) {
     return res.status(200).json({ success: true, data: [] });
   }
 
-  // Create HTML to display filtered products
   let productHTML = `
     <html lang="en">
     <head>
